@@ -26,4 +26,8 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 		return repo.create(t);
 	}
 
+	public List<T> createMultiple(List<T> t) {
+		return t;
+	}
+
 }

@@ -1,5 +1,7 @@
 package test.global;
 
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,5 +14,6 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
     
+  
     
 }
