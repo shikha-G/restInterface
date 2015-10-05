@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.neo4j.rest.graphdb.RestAPI;
+import org.neo4j.rest.graphdb.util.DefaultConverter;
+import org.neo4j.rest.graphdb.util.QueryResult;
 import org.neo4j.rest.graphdb.util.ResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +35,10 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("propmap", convertBeanToMap(t));
 		String query = "create (n: MyModel {propmap}) return n";
-		ResultConverter arg2 = null;
-		restApi.query(query, params, arg2);
-		return null;
-	}
+		ResultConverter<?, T> cov = null;
+		QueryResult<Map<String, Object>> res = restApi.query(query, params, new DefaultConverter<Map<String, Object>, T>());
+		return (T) res.to(t.getClass()).single();
+	} 
 
 	private Map<String, Object> convertBeanToMap(T t) {
 		Map<String, Object> objectAsMap = new HashMap<String, Object>();
