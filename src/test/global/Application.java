@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 @SpringBootApplication
 @ComponentScan(basePackages = {"test.controller", "test.service", "test.repository", "test.validate"})
 public class Application {
@@ -18,6 +21,13 @@ public class Application {
     @Bean
     public RestAPI restAPI(){
     	return new RestAPIImpl("http://localhost:7474/db/data", "neo4j", "neo4j");
+    }
+    
+    @Bean
+    ObjectMapper objectMapper(){
+    	ObjectMapper objMapper = new ObjectMapper().findAndRegisterModules();
+    	objMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    	return objMapper;
     }
     
 }

@@ -3,13 +3,22 @@ package test.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class MyModel {
 	private String name;
 	
-	@NotEmpty
+	@NotNull
 	private Long guid;
+	
+	private LocalDateTime datetime;
+	
+	private boolean bool;
+	
+	private List<String> list;
+
 	
 	public Long getGuid() {
 		return guid;
@@ -43,11 +52,6 @@ public class MyModel {
 		this.list = list;
 	}
 
-	private LocalDateTime datetime;
-	
-	private boolean bool;
-	
-	private List<String> list;
 
 	public String getName() {
 		return name;

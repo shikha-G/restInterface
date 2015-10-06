@@ -49,7 +49,7 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 		
 	    for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
 	        Method reader = pd.getReadMethod();
-	        if (reader != null)
+	        if (reader != null && reader.invoke(t)!=null)
 	            objectAsMap.put(pd.getName(),reader.invoke(t));
 	    }
 		} catch (IntrospectionException e) {
