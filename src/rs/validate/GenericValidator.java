@@ -1,4 +1,4 @@
-package test.validate;
+package rs.validate;
 
 
 public interface GenericValidator<T> {

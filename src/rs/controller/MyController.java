@@ -1,10 +1,10 @@
-package test.controller;
+package rs.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import test.model.MyModel;
+import rs.model.MyModel;
 
 @RestController
 @RequestMapping("/model")

@@ -1,4 +1,4 @@
-package test.controller;
+package rs.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 
-import test.service.GenericService;
+import rs.service.GenericService;
 
 public abstract class GenericController<T> {
 	
@@ -36,11 +36,11 @@ public abstract class GenericController<T> {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity post(@Valid @RequestBody T t, BindingResult result) {
+	public ResponseEntity<?> post(@Valid @RequestBody T t, BindingResult result) {
 		if(result.hasFieldErrors()){
-			return new ResponseEntity(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity(service.createOrUpdate(t), HttpStatus.CREATED);
+		return new ResponseEntity<T>(service.createOrUpdate(t), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)

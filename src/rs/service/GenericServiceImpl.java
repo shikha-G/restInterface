@@ -1,4 +1,4 @@
-package test.service;
+package rs.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import test.repository.GenericRepository;
-import test.validate.GenericValidator;
+import rs.repository.GenericRepository;
+import rs.validate.GenericValidator;
 
 @Service
 public class GenericServiceImpl<T> implements GenericService<T> {

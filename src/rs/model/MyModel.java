@@ -1,4 +1,4 @@
-package test.model;
+package rs.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,8 +6,14 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 
+@NodeEntity
 public class MyModel {
+	@GraphId
+	private Long id;
+	
 	private String name;
 	
 	@NotNull
@@ -59,6 +65,14 @@ public class MyModel {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }
