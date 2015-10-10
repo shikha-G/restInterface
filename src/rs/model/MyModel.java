@@ -4,16 +4,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
-@NodeEntity
+//@NodeEntity
 public class MyModel {
 	@GraphId
 	private Long id;
 	
+	@Size(min=1)
 	private String name;
 	
 	@NotNull
