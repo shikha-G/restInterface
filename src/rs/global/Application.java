@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"test.controller", "test.service", "test.repository", "test.validate"})
+@ComponentScan(basePackages = {"rs.controller", "rs.service", "rs.repository", "rs.validate"})
 public class Application {
 
     public static void main(String[] args) {
