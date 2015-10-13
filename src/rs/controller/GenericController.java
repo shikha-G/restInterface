@@ -68,17 +68,6 @@ public abstract class GenericController<T> {
 		return service.createMultiple(t);
 	}
 	
-	/*@ResponseBody
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public List<String> validationErrorHandle(Exception error){
-		List<String> fields = new ArrayList<String>();
-		error.printStackTrace();
-		JsonMappingException ex = (JsonMappingException)error.getCause();
-		for (Reference ref : ex.getPath()) {
-			fields.add(ref.getFieldName());
-		}
-		return fields;
-	}*/
+
 
 }

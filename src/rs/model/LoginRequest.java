@@ -14,7 +14,7 @@ public class LoginRequest extends BaseNeo4jEntity {
 	private String mobileNo;
 	
 	@Value("${requestStatus}")
-	private String status;// = "NEW_REQUEST";
+	private String status = "NEW";
 
 	public String getMobileNo() {
 		return mobileNo;

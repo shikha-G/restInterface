@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.GraphProperty;
 import org.springframework.data.neo4j.annotation.Indexed;
 
 public class BaseNeo4jEntity implements Serializable {
@@ -17,6 +18,7 @@ public class BaseNeo4jEntity implements Serializable {
 	//@Indexed
     private UUID uuid= UUID.randomUUID();
 	
+    @GraphProperty(propertyType=Long.class)
 	private LocalDateTime createdDateTime = LocalDateTime.now();
 	
 	private LocalDateTime updatedDateTime = LocalDateTime.now();
