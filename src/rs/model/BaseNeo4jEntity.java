@@ -8,6 +8,8 @@ import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.GraphProperty;
 import org.springframework.data.neo4j.annotation.Indexed;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class BaseNeo4jEntity implements Serializable {
 
 	private static final long serialVersionUID = 4056758614117409590L;
@@ -18,9 +20,11 @@ public class BaseNeo4jEntity implements Serializable {
 	//@Indexed
     private UUID uuid= UUID.randomUUID();
 	
-    @GraphProperty(propertyType=Long.class)
+    //@GraphProperty(propertyType=Long.class)
+    @JsonIgnore
 	private LocalDateTime createdDateTime = LocalDateTime.now();
 	
+    @JsonIgnore
 	private LocalDateTime updatedDateTime = LocalDateTime.now();
 	
 	public Long getId() {

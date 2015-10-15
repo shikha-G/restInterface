@@ -62,39 +62,24 @@ public class Application {
 		protected ConversionService neo4jConversionService() throws Exception{
 			ConversionService service = super.neo4jConversionService();
 			ConverterRegistry registry = (ConverterRegistry)service;
-			registry.addConverter(new LocalDateTimeToLongConverter());
+			registry.addConverter(new LocalDateTimeToStringConverter());
 			registry.addConverter(new StringToLocalDateTimeConverter());
+			
 			return service;
 		}
 		
 		public class StringToLocalDateTimeConverter implements Converter<String, LocalDateTime> {
-
-		    @Value("${neo4j.dateTime.format:yyyy-MM-dd HH:mm:ss}")
-		    private String dateTimeFormat;
-		    
-		   
-
-		   //@Override
 		    public LocalDateTime convert( final String source) {
-		        return LocalDateTime.parse(source, DateTimeFormatter.ofPattern(dateTimeFormat));
+		        return LocalDateTime.parse(source, DateTimeFormatter.ISO_DATE_TIME);
 		    }
 		}
-		public static class LocalDateTimeToLongConverter implements Converter<LocalDateTime, Long> {
-
-		    //@Override
-		    public Long convert(final LocalDateTime source) {
-		        return source.getLong(ChronoField.EPOCH_DAY);
+		
+		public class LocalDateTimeToStringConverter implements Converter< LocalDateTime, String> {
+		    public String convert( final LocalDateTime source) {
+		        return source.format(DateTimeFormatter.ISO_DATE_TIME);
 		    }
 		}
-
-		public static class LongToLocalDateTimeConverter implements Converter<Long, LocalDateTime> {
-
-		    //@Override
-		    public LocalDateTime convert(final Long source) {
-		        //return new Date(source.longValue());
-		    	return LocalDateTime.now();
-		    }
-		}
+	
 	}
     
 }

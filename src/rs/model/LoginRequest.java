@@ -13,11 +13,19 @@ public class LoginRequest extends BaseNeo4jEntity {
 	@NotNull
 	private String mobileNo;
 	
-	@Value("${requestStatus}")
+	//@Value("${requestStatus}")
 	private String status = "NEW";
+	
+	private String otp =generateOTP();
 
 	public String getMobileNo() {
 		return mobileNo;
+	}
+
+	private String generateOTP() {
+		int max =9999;
+		int min =1000;
+		return Long.toString(Math.round(Math.random()* (max-min+1)+min));
 	}
 
 	public void setMobileNo(String mobileNo) {
@@ -30,6 +38,14 @@ public class LoginRequest extends BaseNeo4jEntity {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
 	}
 	
 }
