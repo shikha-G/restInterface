@@ -10,7 +10,7 @@ public interface GenericService<T> {
 
 	List<T> find(Map<String, Object> searchParams);
 
-	T createOrUpdate(T t);
+	T update(T t);
 	
 	List<T> createMultiple(List<T> t);
 

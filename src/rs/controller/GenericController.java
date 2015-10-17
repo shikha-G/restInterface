@@ -38,7 +38,7 @@ public abstract class GenericController<T> {
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public T put(@RequestBody T t) {
-		return service.createOrUpdate(t);
+		return service.update(t);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH)

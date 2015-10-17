@@ -23,16 +23,16 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 		return repo.findByFields(searchParams);
 	}
 
-	public T createOrUpdate(T t) {		
-		return repo.create(t);
-	}
-
 	public List<T> createMultiple(List<T> t) {
 		return t;
 	}
 
 	public T create(T t) {
 		return repo.create(t);
+	}
+
+	public T update(T t) {
+		return repo.update(t);
 	}
 
 }
