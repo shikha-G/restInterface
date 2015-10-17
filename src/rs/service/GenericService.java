@@ -3,6 +3,8 @@ package rs.service;
 import java.util.List;
 import java.util.Map;
 
+import rs.model.LoginRequest;
+
 //@Service
 public interface GenericService<T> {
 
@@ -11,4 +13,6 @@ public interface GenericService<T> {
 	T createOrUpdate(T t);
 	
 	List<T> createMultiple(List<T> t);
+
+	T create(T t);
 }

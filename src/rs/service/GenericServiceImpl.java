@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.model.LoginRequest;
 import rs.repository.GenericRepository;
 import rs.validate.GenericValidator;
 
@@ -28,6 +29,10 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 
 	public List<T> createMultiple(List<T> t) {
 		return t;
+	}
+
+	public T create(T t) {
+		return repo.create(t);
 	}
 
 }
