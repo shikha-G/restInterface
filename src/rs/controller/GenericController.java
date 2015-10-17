@@ -33,7 +33,7 @@ public abstract class GenericController<T> {
 		if(result.hasFieldErrors()){
 			return new ResponseEntity<List>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<T>(service.createOrUpdate(t), HttpStatus.CREATED);
+		return new ResponseEntity<T>(service.create(t), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)

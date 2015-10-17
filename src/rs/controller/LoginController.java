@@ -24,18 +24,6 @@ public class LoginController extends GenericController<LoginRequest> {
 	@Autowired
 	LoginService loginService;
 	
-	@Override
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> post(@Valid @RequestBody LoginRequest t, BindingResult result) {
-		if(result.hasFieldErrors()){
-			return new ResponseEntity<List>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
-		}
-		boolean sent =sendSMS(t.getOtp());
-		if(sent){
-			t.setStatus("VERIFICATION_PENDING");
-		}
-		return new ResponseEntity<LoginRequest>(service.create(t), HttpStatus.CREATED);
-	}
 	
 	@RequestMapping(method = RequestMethod.POST, value="verify" )
 	public ResponseEntity<?> validateToken(@Valid @RequestBody Map<String,Object> t, BindingResult result) {
@@ -46,8 +34,5 @@ public class LoginController extends GenericController<LoginRequest> {
 		return new ResponseEntity<LoginRequest>(loginService.verify(t), HttpStatus.CREATED);
 	}
 
-	private boolean sendSMS(String otp) {
-		// TODO Auto-generated method stub
-		return true;
-	}
+
 }
