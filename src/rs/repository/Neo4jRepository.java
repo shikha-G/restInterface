@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.neo4j.rest.graphdb.RestAPI;
 import org.neo4j.rest.graphdb.query.CypherResult;
@@ -16,6 +17,7 @@ import org.neo4j.rest.graphdb.util.DefaultConverter;
 import org.neo4j.rest.graphdb.util.QueryResult;
 import org.neo4j.rest.graphdb.util.ResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +25,51 @@ import org.springframework.stereotype.Service;
 public class Neo4jRepository<T> implements GenericRepository<T> {
 
 	
+	
 	@Autowired
 	RestAPI restApi;
-	
 	@Autowired
 	Neo4jTemplate template;
 	
+	private final Class<T> type;
+	 
+	public Neo4jRepository(Class<T> type) {
+		super();
+		this.type = type;
+	}
+
+
+	
 	public List<T> findByFields(Map<String, Object> searchParams) {
-		
+		T t = null;
+		StringBuilder query = new StringBuilder("Match (n:"+type.getClass().getCanonicalName()+") ");
+		query.append(getWhereClause(searchParams));//where 
+		query.append("RETURN n");
+		Result<Map<String, Object>> result = template.query(query.toString(), searchParams);
+		//result.as(type.getClass());
 		return null;
 	}
+
+	private Object getWhereClause(Map<String, Object> searchParams) {
+		StringBuilder whereClause = new StringBuilder();
+		for(Entry<String, Object> param:searchParams.entrySet()){
+			appendPrefix(whereClause);
+			whereClause.append("n."+param.getKey()+" = {"+param.getKey()+"}");
+		}
+		//whereClause.append("WHERE");
+		
+		return whereClause;
+	}
+
+	private void appendPrefix(StringBuilder whereClause) {
+		if(whereClause.toString().contains("WHERE "))
+			whereClause.append(" AND ");
+		else
+			whereClause.append("WHERE ");
+		
+	}
+
+
 
 	public T create(T t) {
 		return template.save(t);

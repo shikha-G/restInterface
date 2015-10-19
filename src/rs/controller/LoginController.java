@@ -27,11 +27,13 @@ public class LoginController extends GenericController<LoginRequest> {
 	
 	@RequestMapping(method = RequestMethod.POST, value="verify" )
 	public ResponseEntity<?> validateToken(@Valid @RequestBody Map<String,Object> t, BindingResult result) {
+		ResponseEntity<?> response;
 		if(result.hasFieldErrors()){
-			return new ResponseEntity<List>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
-		}
+			response= new ResponseEntity<List>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
+		}		
+		response= new ResponseEntity<LoginRequest>(loginService.verify(t), HttpStatus.CREATED);
+		return response;
 		
-		return new ResponseEntity<LoginRequest>(loginService.verify(t), HttpStatus.CREATED);
 	}
 
 
