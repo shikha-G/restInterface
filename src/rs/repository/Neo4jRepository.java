@@ -6,22 +6,21 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.neo4j.rest.graphdb.RestAPI;
-import org.neo4j.rest.graphdb.query.CypherResult;
-import org.neo4j.rest.graphdb.util.DefaultConverter;
-import org.neo4j.rest.graphdb.util.QueryResult;
-import org.neo4j.rest.graphdb.util.ResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 
-@Service
+import com.google.common.reflect.TypeToken;
+
 public class Neo4jRepository<T> implements GenericRepository<T> {
 
 	
@@ -30,25 +29,42 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 	RestAPI restApi;
 	@Autowired
 	Neo4jTemplate template;
-	
-	private final Class<T> type;
+	private final TypeToken<T> token;
+	private final Class<? super T> type;
 	 
-	public Neo4jRepository(Class<T> type) {
+	public Neo4jRepository() {
 		super();
-		this.type = type;
+		token = new TypeToken<T>(getClass()){};
+		this.type = token.getRawType();
 	}
 
 
 	
 	public List<T> findByFields(Map<String, Object> searchParams) {
-		T t = null;
-		StringBuilder query = new StringBuilder("Match (n:"+type.getClass().getCanonicalName()+") ");
+
+		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+") ");
 		query.append(getWhereClause(searchParams));//where 
 		query.append("RETURN n");
 		Result<Map<String, Object>> result = template.query(query.toString(), searchParams);
-		//result.as(type.getClass());
-		return null;
+		return convertToList(result);
 	}
+
+	private List<T> convertToList(Result<Map<String, Object>> result) {
+		List<T> list = new ArrayList<T>();
+		if(result !=null){
+			Iterator<Map<String, Object>> itr = result.iterator();
+			while(itr.hasNext()){
+				Map<String, Object> map = itr.next();
+				for(Entry<String, Object> entry:map.entrySet()){
+					T t = (T)template.projectTo(entry.getValue(), type);
+					list.add(t);
+				}
+			}
+		}
+		return list;
+	}
+
+
 
 	private Object getWhereClause(Map<String, Object> searchParams) {
 		StringBuilder whereClause = new StringBuilder();
@@ -115,9 +131,8 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 	    return objectAsMap;
 	}
 
-	public T update(T t) {
-		// TODO Auto-generated method stub
-		return null;
+	public T update(T t) {		
+		return template.save(t);
 	}
 
 	public T delete(T t) {

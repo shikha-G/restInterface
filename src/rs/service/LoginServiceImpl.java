@@ -1,6 +1,7 @@
 package rs.service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,10 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 			if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
 				login.setStatus("VARIFIED");
 				login.setAccessToken(login.getUuid().toString());
+			}else{
+				login.setStatus("LOGIN_FAILED");
 			}
-		}
-		
+		}		
 		return repo.update(login);
 	}
 	
@@ -33,6 +35,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 		boolean sent =sendSMS(t.getOtp());
 		if(sent){
 			t.setStatus("VERIFICATION_PENDING");
+			t.setOtpExpireDate(LocalDateTime.now().plusMinutes(15));
 		}
 		return super.create(t);
 	}
