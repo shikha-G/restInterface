@@ -2,6 +2,7 @@ package rs.repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public interface GenericRepository<T> {
 
@@ -18,5 +19,7 @@ public interface GenericRepository<T> {
 	List<T> updateMultiple(List<T> list);
 	
 	List<T> deleteMultiple(List<T> list);
+
+	T findByUUID(Object object);
 	
 }

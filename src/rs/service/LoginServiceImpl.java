@@ -2,7 +2,6 @@ package rs.service;
 
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -15,18 +14,14 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 
 	
 	public LoginRequest verify(Map<String, Object> map) {
-		LoginRequest login = null;
 		validator.validateMap(map);
-		List<LoginRequest> list = repo.findByFields(map);
-		if(!list.isEmpty()){
-			login = list.get(0);
-			if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
-				login.setStatus("VARIFIED");
-				login.setAccessToken(login.getUuid().toString());				
-			}else{
-				login.setStatus("LOGIN_FAILED");
-			}
-		}		
+		LoginRequest login= repo.findByUUID(map.get("uuid"));
+		if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
+			login.setStatus("VARIFIED");
+			login.setAccessToken(login.getUuid().toString());				
+		}else{
+			login.setStatus("LOGIN_FAILED");
+		}
 		return repo.update(login);
 	}
 	

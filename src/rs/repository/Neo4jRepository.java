@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.neo4j.rest.graphdb.RestAPI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,18 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 		this.type = token.getRawType();
 	}
 
-
+	public T findByUUID(Object uuid){
+		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+") ");
+		query.append("WHERE n.uuid = {uuid} ");//where 
+		query.append("RETURN n");
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uuid", uuid);
+		Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
+		return (T)template.projectTo(result.get("n"), type);
+	}
 	
 	public List<T> findByFields(Map<String, Object> searchParams) {
-		T t = null;
 		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+") ");
 		query.append(getWhereClause(searchParams));//where 
 		query.append("RETURN n");

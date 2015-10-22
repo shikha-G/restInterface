@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.GraphProperty;
 import org.springframework.data.neo4j.annotation.Indexed;
@@ -22,9 +24,11 @@ public class BaseNeo4jEntity implements Serializable {
 	
     //@GraphProperty(propertyType=Long.class)
     @JsonIgnore
+    @CreatedDate
 	private LocalDateTime createdDateTime = LocalDateTime.now();
 	
     @JsonIgnore
+    @LastModifiedDate
 	private LocalDateTime updatedDateTime = LocalDateTime.now();
 	
 	public Long getId() {
