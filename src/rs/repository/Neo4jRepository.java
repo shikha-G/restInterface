@@ -12,13 +12,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.UUID;
 
-import org.neo4j.rest.graphdb.RestAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
-import org.springframework.stereotype.Service;
 
 import rs.model.BaseNeo4jEntity;
 
@@ -28,8 +25,6 @@ public class Neo4jRepository<T extends BaseNeo4jEntity> implements GenericReposi
 
 	
 	
-	@Autowired
-	RestAPI restApi;
 	@Autowired
 	Neo4jTemplate template;
 	private final TypeToken<T> token;
