@@ -41,7 +41,7 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 
 	
 	public List<T> findByFields(Map<String, Object> searchParams) {
-
+		T t = null;
 		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+") ");
 		query.append(getWhereClause(searchParams));//where 
 		query.append("RETURN n");

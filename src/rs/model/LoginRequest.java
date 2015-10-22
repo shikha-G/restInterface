@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * @author Shikha
  *
@@ -76,7 +74,6 @@ public class LoginRequest extends BaseNeo4jEntity {
 		this.accessToken = accessToken;
 	}
 
-	@JsonIgnore
 	public boolean isOTPExpired() {
 		if(otpExpireDate.isBefore(LocalDateTime.now()))
 			return true;

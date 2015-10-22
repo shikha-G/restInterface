@@ -22,7 +22,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 			login = list.get(0);
 			if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
 				login.setStatus("VARIFIED");
-				login.setAccessToken(login.getUuid().toString());
+				login.setAccessToken(login.getUuid().toString());				
 			}else{
 				login.setStatus("LOGIN_FAILED");
 			}
