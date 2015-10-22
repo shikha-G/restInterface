@@ -4,19 +4,27 @@ package rs.service;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.model.LoginRequest;
+import rs.model.User;
 
 @Service
 public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 		implements LoginService {
-
+	
+	@Autowired
+	GenericService<User> userService;
 	
 	public LoginRequest verify(Map<String, Object> map) {
 		validator.validateMap(map);
 		LoginRequest login= repo.findByUUID(map.get("uuid"));
 		if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
+			// Create or update User
+			User user = new User();
+			user.setMobileNo(login.getMobileNo());
+			userService.create(user);
 			login.setStatus("VARIFIED");
 			login.setAccessToken(login.getUuid().toString());				
 		}else{
