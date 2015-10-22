@@ -20,9 +20,11 @@ import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 
+import rs.model.BaseNeo4jEntity;
+
 import com.google.common.reflect.TypeToken;
 
-public class Neo4jRepository<T> implements GenericRepository<T> {
+public class Neo4jRepository<T extends BaseNeo4jEntity> implements GenericRepository<T> {
 
 	
 	
@@ -31,7 +33,7 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 	@Autowired
 	Neo4jTemplate template;
 	private final TypeToken<T> token;
-	private final Class<? super T> type;
+	protected final Class<? super T> type;
 	 
 	public Neo4jRepository() {
 		super();
@@ -47,7 +49,10 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("uuid", uuid);
 		Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
-		return (T)template.projectTo(result.get("n"), type);
+		if(result!=null)
+			return (T)template.projectTo(result.get("n"), type);
+		else
+			return null;
 	}
 	
 	public List<T> findByFields(Map<String, Object> searchParams) {
@@ -94,54 +99,24 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 		
 	}
 
-
-
 	public T create(T t) {
 		return template.save(t);
-		/*Map<String, Object> params = new HashMap<String, Object>();
-		Map<String, Object> propmap = convertBeanToMap(t);
-		params.put("propmap", convertBeanToMap(t));
-		String query = "create (n: MyModel {propmap}) return n";
-		Object node = template.createNodeAs(t.getClass(), propmap);
-		CypherResult result = restApi.query(query, params);
-		 Map map = result.asMap();
-		  Map resData = (Map)(result.getData().iterator().next().get(0));
-		  Object prop = resData.get("data");
-		// resData.iterator().next().
-		//QueryResult<Map<String, Object>> res = restApi.query(query, params, new DefaultConverter<Map<String, Object>, T>());
-		return t;//(T) res.to(t.getClass()).single();*/
 	} 
 
-	private Map<String, Object> convertBeanToMap(T t) {
-		Map<String, Object> objectAsMap = new HashMap<String, Object>();
-		
-	    BeanInfo info;
-		try {
-			info = Introspector.getBeanInfo(t.getClass());
-		
-	    for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
-	        Method reader = pd.getReadMethod();
-	        if (reader != null && reader.invoke(t)!=null)
-	            objectAsMap.put(pd.getName(),reader.invoke(t));
-	    }
-		} catch (IntrospectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    return objectAsMap;
-	}
 
-	public T update(T t) {		
-		return template.save(t);
+
+	public T update(T t) {	
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uuid", t.getUuid());
+		params.put("propMap",convertBeanToMap(t));
+		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+" {uuid: {uuid}}) ");
+		query.append("SET n={propMap} ");
+		query.append("RETURN n");
+		Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
+		if(result!=null)
+			return (T)template.projectTo(result.get("n"), type);
+		else
+			return null;
 	}
 
 	public T delete(T t) {
@@ -163,7 +138,32 @@ public class Neo4jRepository<T> implements GenericRepository<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+	public T createOrUpdate(T t) {
+		T existing = findByUUID(t.getUuid());
+		if(existing != null){	// update
+			return update(t);
+		}else
+			return create(t);
+	}
+
+	private Map<String, Object> convertBeanToMap(T t) {
+		Map<String, Object> objectAsMap = new HashMap<String, Object>();
+		
+	    BeanInfo info;
+		try {
+			info = Introspector.getBeanInfo(t.getClass());
+		
+	    for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
+	        Method reader = pd.getReadMethod();
+	        if (reader != null && reader.invoke(t)!=null)
+	            objectAsMap.put(pd.getName(),reader.invoke(t));
+	    }
+		} catch (IntrospectionException | IllegalAccessException | IllegalArgumentException |InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	    return objectAsMap;
+	}
 
 }

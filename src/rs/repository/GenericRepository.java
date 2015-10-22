@@ -12,6 +12,8 @@ public interface GenericRepository<T> {
 	
 	T update(T t);
 	
+	T createOrUpdate(T t);
+	
 	T delete(T t);
 	
 	List<T> createMultiple(List<T> list);
@@ -21,5 +23,6 @@ public interface GenericRepository<T> {
 	List<T> deleteMultiple(List<T> list);
 
 	T findByUUID(Object object);
+	
 	
 }

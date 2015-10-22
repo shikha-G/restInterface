@@ -34,4 +34,8 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 		return repo.update(t);
 	}
 
+	public T createOrUpdate(T t) {
+		return repo.createOrUpdate(t);
+	}
+
 }
