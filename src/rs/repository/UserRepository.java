@@ -3,10 +3,13 @@ package rs.repository;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import rs.model.User;
 
-
-public class UserRepository extends Neo4jRepository<User> {
+@Repository
+public class UserRepository extends Neo4jRepository<User>  {
 
 	@Override
 	public User createOrUpdate(User t) {

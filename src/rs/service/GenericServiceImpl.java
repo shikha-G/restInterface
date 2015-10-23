@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import rs.repository.GenericRepository;
 import rs.validate.GenericValidator;
 
-@Service
-public class GenericServiceImpl<T> implements GenericService<T> {
+//@Service
+public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
 	@Autowired
 	GenericRepository<T> repo;

@@ -6,7 +6,6 @@ import java.util.Map;
 import rs.model.LoginRequest;
 import rs.model.User;
 
-//@Service
 public interface GenericService<T> {
 
 	List<T> find(Map<String, Object> searchParams);

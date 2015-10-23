@@ -21,9 +21,7 @@ import rs.model.BaseNeo4jEntity;
 
 import com.google.common.reflect.TypeToken;
 
-public class Neo4jRepository<T extends BaseNeo4jEntity> implements GenericRepository<T> {
-
-	
+public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements GenericRepository<T> {	
 	
 	@Autowired
 	Neo4jTemplate template;
