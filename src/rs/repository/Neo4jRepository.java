@@ -32,7 +32,8 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 	 
 	public Neo4jRepository() {
 		super();
-		token = new TypeToken<T>(getClass()){};
+		token = new TypeToken<T>(getClass()){
+			private static final long serialVersionUID = 1L;};
 		this.type = token.getRawType();
 	}
 
@@ -137,7 +138,7 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 			params.put("uuid", uuid);
 			params.put("uuidList", uuidList);
 			Result<Map<String, Object>> result = template.query(query.toString(), params );
-			Iterator<Map<String, Object>> itr = result.iterator();
+			//Iterator<Map<String, Object>> itr = result.iterator();
 			//return convertToList(result);
 		}
 	}
