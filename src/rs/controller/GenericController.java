@@ -25,7 +25,6 @@ public abstract class GenericController<T> {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<T> get(@RequestParam Map<String, Object> searchParams) {
 		return service.find(searchParams);
-		//return new ArrayList<T>();
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

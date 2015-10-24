@@ -19,6 +19,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	GenericValidator<T> validator;
 	
 	public List<T> find(Map<String, Object> searchParams) {
+		validator.validateMap(searchParams);
 		return repo.findByFields(searchParams);
 	}
 

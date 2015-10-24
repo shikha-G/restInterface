@@ -6,6 +6,8 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -77,7 +79,12 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 		StringBuilder whereClause = new StringBuilder();
 		for(Entry<String, Object> param:searchParams.entrySet()){
 			appendPrefix(whereClause);
-			whereClause.append("n."+param.getKey()+" = {"+param.getKey()+"}");
+			whereClause.append("n."+param.getKey());
+			if(param.getValue() instanceof List)
+				whereClause.append(" IN ");
+			else
+				whereClause.append(" = ");
+			whereClause.append("{"+param.getKey()+"}");
 		}
 		//whereClause.append("WHERE");
 		
@@ -149,8 +156,12 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 		
 	    for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
 	        Method reader = pd.getReadMethod();
-	        if (reader != null && reader.invoke(t)!=null)
-	            objectAsMap.put(pd.getName(),reader.invoke(t));
+	        if (reader != null && reader.invoke(t)!=null){
+	        	Object value= reader.invoke(t);
+	        	if(value instanceof LocalDateTime)
+	        		value=((LocalDateTime)value).format(DateTimeFormatter.ISO_DATE_TIME);
+	            objectAsMap.put(pd.getName(),value);
+	        }
 	    }
 		} catch (IntrospectionException | IllegalAccessException | IllegalArgumentException |InvocationTargetException e) {
 			// TODO Auto-generated catch block
