@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import rs.repository.GenericRepository;
 import rs.validate.GenericValidator;
@@ -27,14 +28,16 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 		return t;
 	}
 
+	@Transactional
 	public T create(T t) {
 		return repo.create(t);
 	}
 
+	@Transactional
 	public T update(T t) {
 		return repo.update(t);
 	}
-
+	@Transactional
 	public T createOrUpdate(T t) {
 		return repo.createOrUpdate(t);
 	}

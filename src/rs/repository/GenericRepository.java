@@ -3,6 +3,8 @@ package rs.repository;
 import java.util.List;
 import java.util.Map;
 
+import rs.model.User;
+
 public interface GenericRepository<T> {
 
 	List<T> findByFields(Map<String, Object> searchParams);
@@ -22,6 +24,8 @@ public interface GenericRepository<T> {
 	List<T> deleteMultiple(List<T> list);
 
 	T findByUUID(Object object);
+
+	void createRelationShip(String uuid, List<?> friends, String string);
 	
 	
 }

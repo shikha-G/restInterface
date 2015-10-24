@@ -24,9 +24,9 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 			// Create or update User
 			User user = new User();
 			user.setMobileNo(login.getMobileNo());
-			userService.createOrUpdate(user);
+			user=userService.createOrUpdate(user);
 			login.setStatus("VARIFIED");
-			login.setAccessToken(login.getUuid().toString());				
+			login.setAccessToken(user.getUuid().toString());				
 		}else{
 			login.setStatus("LOGIN_FAILED");
 		}

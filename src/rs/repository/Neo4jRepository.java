@@ -86,7 +86,6 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 				whereClause.append(" = ");
 			whereClause.append("{"+param.getKey()+"}");
 		}
-		//whereClause.append("WHERE");
 		
 		return whereClause;
 	}
@@ -122,6 +121,25 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 	public T delete(T t) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void createRelationShip(String uuid, List<?> relations, String relType){
+		if(!relations.isEmpty()){
+			String nodeType=relations.get(0).getClass().getSimpleName();
+			List<String> uuidList= new ArrayList<String>();
+			for(Object rel: relations){
+				uuidList.add(((BaseNeo4jEntity)rel).getUuid().toString());
+			}
+			StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+" {uuid: {uuid}}) ");
+			query.append(", (m:"+nodeType+") WHERE m.uuid IN {uuidList} ");
+			query.append("CREATE (n)-[r:"+relType+"]->(m) RETURN r");
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("uuid", uuid);
+			params.put("uuidList", uuidList);
+			Result<Map<String, Object>> result = template.query(query.toString(), params );
+			Iterator<Map<String, Object>> itr = result.iterator();
+			//return convertToList(result);
+		}
 	}
 
 	public List<T> createMultiple(List<T> list) {
