@@ -43,7 +43,7 @@ public abstract class GenericController<T> {
 
 	@RequestMapping(method = RequestMethod.PATCH)
 	public T patch(@RequestBody T t) {
-		return t;
+		return service.update(t);
 	}
 	
 	@RequestMapping(value="/multi", method = RequestMethod.POST)

@@ -1,5 +1,10 @@
 package rs.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
 @NodeEntity
@@ -7,10 +12,14 @@ public class Group extends BaseNeo4jEntity{
 
 	private static final long serialVersionUID = -4305823415241622110L;
 	
+	@NotNull
+	@NotEmpty
 	private String name;
 	
 	private String description;
-	private Integer percentVote;
+	@Min(10)
+	@Max(100)
+	private Integer percentVote =50;
 	private String location;
 	public String getName() {
 		return name;

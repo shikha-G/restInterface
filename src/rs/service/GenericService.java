@@ -3,8 +3,6 @@ package rs.service;
 import java.util.List;
 import java.util.Map;
 
-import rs.model.LoginRequest;
-import rs.model.User;
 
 public interface GenericService<T> {
 

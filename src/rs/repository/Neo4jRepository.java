@@ -106,17 +106,30 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 
 
 	public T update(T t) {	
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("uuid", t.getUuid());
-		params.put("propMap",convertBeanToMap(t));
+		Map<String, Object> propMap = convertBeanToMap(t);
+		//params.put("uuid", t.getUuid());
+		//params.put("propMap",convertBeanToMap(t));
 		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+" {uuid: {uuid}}) ");
-		query.append("SET n={propMap} ");
+		//query.append("SET ");
+		for(String key:propMap.keySet()){
+			appendSet(query);
+			query.append(" n."+key+"={"+key+"} ");
+		}
 		query.append("RETURN n");
-		Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
+		Map<String, Object> result = template.query(query.toString(), propMap).singleOrNull();
 		if(result!=null)
 			return (T)template.projectTo(result.get("n"), type);
 		else
 			return null;
+	}
+
+	private void appendSet(StringBuilder query) {
+		if(query.toString().contains("SET "))
+			query.append(" , ");
+		else
+			query.append("SET ");
+		
+		
 	}
 
 	public T delete(T t) {
