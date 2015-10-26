@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.conversion.Result;
@@ -37,7 +38,7 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 		this.type = token.getRawType();
 	}
 
-	public T findByUUID(Object uuid){
+	public T findByUUID(UUID uuid){
 		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+") ");
 		query.append("WHERE n.uuid = {uuid} ");//where 
 		query.append("RETURN n");

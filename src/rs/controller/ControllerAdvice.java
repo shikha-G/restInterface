@@ -15,8 +15,8 @@ import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 @org.springframework.web.bind.annotation.ControllerAdvice
 public class ControllerAdvice {
 
-	@ResponseBody
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	/*@ResponseBody
+    //@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public List<String> validationErrorHandle(HttpMessageNotReadableException error){
 		List<String> fields = new ArrayList<String>();
@@ -26,5 +26,5 @@ public class ControllerAdvice {
 			fields.add(ref.getFieldName());
 		}
 		return fields;
-	}
+	}*/
 }

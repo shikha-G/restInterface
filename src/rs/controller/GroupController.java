@@ -26,20 +26,21 @@ public class GroupController extends GenericController<Group> {
 	GroupService groupService;
 
 	@RequestMapping(method = RequestMethod.PUT, value="/join")
-	public ResponseEntity<?> joinGroup(@RequestHeader(value="token") String token,@Valid @RequestBody String groupUUID, BindingResult result) {
+	public ResponseEntity<?> joinGroup(@RequestHeader(value="token") String token,@RequestBody Group grp, BindingResult result) {
 		if(result.hasFieldErrors()){
 			return new ResponseEntity<List<FieldError>>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
 		}		 
-		Group group=groupService.joinGroup(token,groupUUID);
+		Group group=groupService.joinGroup(token,grp.getUuid());
 		return new ResponseEntity<Group>(group, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value="/vote")
-	public ResponseEntity<?> vote(@RequestHeader(value="token") String token,@Valid @RequestBody String groupUUID, BindingResult result) {
+	public ResponseEntity<?> vote(@RequestHeader(value="token") String token,@RequestBody String groupUUID, BindingResult result) {
 		if(result.hasFieldErrors()){
 			return new ResponseEntity<List<FieldError>>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
 		}		 
-		Group group=groupService.joinGroup(token,groupUUID);
-		return new ResponseEntity<Group>(group, HttpStatus.OK);
+		//Group group=groupService.joinGroup(token,groupUUID);
+		//return new ResponseEntity<Group>(group, HttpStatus.OK);
+		return null;
 	}
 }

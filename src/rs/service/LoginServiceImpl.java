@@ -3,6 +3,7 @@ package rs.service;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 	
 	public LoginRequest verify(Map<String, Object> map) {
 		validator.validateMap(map);
-		LoginRequest login= repo.findByUUID(map.get("uuid"));
+		LoginRequest login= repo.findByUUID((UUID)map.get("uuid"));
 		if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
 			// Create or update User
 			User user = new User();

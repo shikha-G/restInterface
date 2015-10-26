@@ -2,6 +2,7 @@ package rs.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 public interface GenericService<T> {
@@ -15,4 +16,6 @@ public interface GenericService<T> {
 	T create(T t);
 
 	T createOrUpdate(T t);
+	
+	T findByUUID(UUID uuid);
 }

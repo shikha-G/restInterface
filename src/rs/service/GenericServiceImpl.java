@@ -2,6 +2,7 @@ package rs.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,11 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	@Transactional
 	public T createOrUpdate(T t) {
 		return repo.createOrUpdate(t);
+	}
+	
+	@Override
+	public T findByUUID(UUID uuid) {
+		return repo.findByUUID(uuid);
 	}
 
 }
