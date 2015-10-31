@@ -9,75 +9,144 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 /**
  * @author Shikha
  *
+ * @version $Revision: 1.0 $
  */
 @NodeEntity
 public class LoginRequest extends BaseNeo4jEntity {
 
+	private static final int _1000 = 1000;
+
+	private static final int _9999 = 9999;
+
+	/**
+	 * Field serialVersionUID.
+	 * (value is 1400826655351790992)
+	 */
 	private static final long serialVersionUID = 1400826655351790992L;
 		
+	/**
+	 * Field mobileNo.
+	 */
 	@NotNull
 	private String mobileNo;
 	
 	//@Value("${requestStatus}")
+	/**
+	 * Field status.
+	 */
 	private String status = "NEW";
 	
+	/**
+	 * Field otp.
+	 */
 	private String otp =generateOTP();
 	
+	/**
+	 * Field otpExpireDate.
+	 */
 	private LocalDateTime otpExpireDate;
 	
+	/**
+	 * Field accessToken.
+	 */
 	private String accessToken;
 
+	/**
+	 * Method getMobileNo.
+	 * @return String
+	 */
 	public String getMobileNo() {
 		return mobileNo;
 	}
 
+	/**
+	 * Method generateOTP.
+	 * @return String
+	 */
 	private String generateOTP() {
-		int max =9999;
-		int min =1000;
+		int max =_9999;
+		int min =_1000;
 		return Long.toString(Math.round(Math.random()* (max-min+1)+min));
 	}
 
+	/**
+	 * Method setMobileNo.
+	 * @param mobileNo String
+	 */
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
+	/**
+	 * Method getStatus.
+	 * @return String
+	 */
 	public String getStatus() {
 		return status;
 	}
 
+	/**
+	 * Method setStatus.
+	 * @param status String
+	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
+	/**
+	 * Method getOtp.
+	 * @return String
+	 */
 	public String getOtp() {
 		return otp;
 	}
 
+	/**
+	 * Method setOtp.
+	 * @param otp String
+	 */
 	public void setOtp(String otp) {
 		this.otp = otp;
 	}
 
+	/**
+	 * Method getOtpExpireDate.
+	 * @return LocalDateTime
+	 */
 	public LocalDateTime getOtpExpireDate() {
 		return otpExpireDate;
 	}
 
+	/**
+	 * Method setOtpExpireDate.
+	 * @param otpExpireDate LocalDateTime
+	 */
 	public void setOtpExpireDate(LocalDateTime otpExpireDate) {
 		this.otpExpireDate = otpExpireDate;
 	}
 
+	/**
+	 * Method getAccessToken.
+	 * @return String
+	 */
 	public String getAccessToken() {
 		return accessToken;
 	}
 
+	/**
+	 * Method setAccessToken.
+	 * @param accessToken String
+	 */
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
 	}
 
+	/**
+	 * Method isOTPExpired.
+	 * @return boolean
+	 */
 	public boolean isOTPExpired() {
-		if(otpExpireDate.isBefore(LocalDateTime.now()))
-			return true;
-		else
-			return false;
+		return otpExpireDate.isBefore(LocalDateTime.now()) ? true : false;
 	}
 	
 }

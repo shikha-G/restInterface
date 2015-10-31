@@ -1,17 +1,11 @@
 package rs.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonMappingException.Reference;
-
+/**
+ * @author s.gupta
+ * @version $Revision: 1.0 $
+ */
 @org.springframework.web.bind.annotation.ControllerAdvice
 public class ControllerAdvice {
 

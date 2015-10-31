@@ -20,13 +20,27 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.model.User;
 import rs.service.UserService;
 
+/**
+ * @author s.gupta
+ * @version $Revision: 1.0 $
+ */
 @RestController
 @RequestMapping("/user")
 public class UserConroller extends GenericController<User> {
 	
+	/**
+	 * Field userService.
+	 */
 	@Autowired
 	UserService userService;
 	
+	/**
+	 * Method addFriends.
+	 * @param token String
+	 * @param contacts List<String>
+	 * @param result BindingResult
+	
+	 * @return ResponseEntity<?> */
 	@RequestMapping(method = RequestMethod.PUT, value="/contacts")
 	public ResponseEntity<?> addFriends(@RequestHeader(value="token") String token,@Valid @RequestBody List<String> contacts, BindingResult result) {
 		if(result.hasFieldErrors()){

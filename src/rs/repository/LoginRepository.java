@@ -1,10 +1,13 @@
 package rs.repository;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import rs.model.LoginRequest;
 
+/**
+ * @author s.gupta
+ * @version $Revision: 1.0 $
+ */
 @Repository
 public class LoginRepository extends Neo4jRepository<LoginRequest> {
 

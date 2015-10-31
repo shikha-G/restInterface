@@ -11,13 +11,32 @@ import org.springframework.stereotype.Service;
 import rs.model.LoginRequest;
 import rs.model.User;
 
+/**
+ * @author s.gupta
+ * @version $Revision: 1.0 $
+ */
 @Service
 public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 		implements LoginService {
 	
+	/**
+	 * Field _15.
+	 * (value is 15)
+	 */
+	private static final int _15 = 15;
+	/**
+	 * Field userService.
+	 */
 	@Autowired
 	GenericService<User> userService;
 	
+	/**
+	 * Method verify.
+	 * @param map Map<String,Object>
+	
+	
+	 * @return LoginRequest * @see rs.service.LoginService#verify(Map<String,Object>) * @see rs.service.LoginService#verify(Map<String,Object>)
+	 */
 	public LoginRequest verify(Map<String, Object> map) {
 		validator.validateMap(map);
 		LoginRequest login= repo.findByUUID((UUID)map.get("uuid"));
@@ -34,15 +53,25 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 		return repo.update(login);
 	}
 	
+	/**
+	 * Method create.
+	 * @param t LoginRequest
+	
+	 * @return LoginRequest */
 	@Override
 	public LoginRequest create(LoginRequest t) {
 		boolean sent =sendSMS(t.getOtp());
 		if(sent){
 			t.setStatus("VERIFICATION_PENDING");
-			t.setOtpExpireDate(LocalDateTime.now().plusMinutes(15));
+			t.setOtpExpireDate(LocalDateTime.now().plusMinutes(_15));
 		}
 		return super.create(t);
 	}
+	/**
+	 * Method sendSMS.
+	 * @param otp String
+	
+	 * @return boolean */
 	private boolean sendSMS(String otp) {
 		// TODO Auto-generated method stub
 		return true;

@@ -4,8 +4,17 @@ import java.util.Map;
 
 import rs.model.LoginRequest;
 
+/**
+ * @author s.gupta
+ * @version $Revision: 1.0 $
+ */
 public interface LoginService extends GenericService<LoginRequest> {
 
+	/**
+	 * Method verify.
+	 * @param t Map<String,Object>
+	
+	 * @return LoginRequest */
 	LoginRequest verify(Map<String, Object> t);
 
 }
