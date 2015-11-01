@@ -77,5 +77,10 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 		return true;
 	}
 
+	@Override
+	public UUID getLoggedInUser(String token) {		
+		return UUID.fromString(token);
+	}
+
 
 }

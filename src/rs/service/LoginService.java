@@ -1,6 +1,7 @@
 package rs.service;
 
 import java.util.Map;
+import java.util.UUID;
 
 import rs.model.LoginRequest;
 
@@ -16,5 +17,7 @@ public interface LoginService extends GenericService<LoginRequest> {
 	
 	 * @return LoginRequest */
 	LoginRequest verify(Map<String, Object> t);
+	
+	UUID getLoggedInUser(String token);
 
 }

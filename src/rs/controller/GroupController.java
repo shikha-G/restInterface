@@ -33,18 +33,18 @@ public class GroupController extends GenericController<Group> {
 	/**
 	 * Field groupService.
 	 */
-	@Autowired
+/*	@Autowired
 	GroupService groupService;
 	
 	
 
-	/**
+	*//**
 	 * Method joinGroup.
 	 * @param token String
 	 * @param grp Group
 	 * @param result BindingResult
 	
-	 * @return ResponseEntity<?> */
+	 * @return ResponseEntity<?> *//*
 	@RequestMapping(method = RequestMethod.PUT, value="/join")
 	public ResponseEntity<?> joinGroup(@RequestHeader(value="token") String token,@Valid @RequestBody Group grp, BindingResult result) {
 		if(result.hasFieldErrors()){
@@ -54,13 +54,13 @@ public class GroupController extends GenericController<Group> {
 		return new ResponseEntity<Group>(group, HttpStatus.OK);
 	}
 	
-	/**
+	*//**
 	 * Method vote.
 	 * @param token String
 	 * @param groupUUID String
 	 * @param result BindingResult
 	
-	 * @return ResponseEntity<?> */
+	 * @return ResponseEntity<?> *//*
 	@RequestMapping(method = RequestMethod.PUT, value="/vote")
 	public ResponseEntity<?> vote(@RequestHeader(value="token") String token,@RequestBody String groupUUID, @NotNull BindingResult result) {
 		if(result.hasFieldErrors()){
@@ -69,5 +69,5 @@ public class GroupController extends GenericController<Group> {
 		//Group group=groupService.joinGroup(token,groupUUID);
 		//return new ResponseEntity<Group>(group, HttpStatus.OK);
 		return null;
-	}
+	}*/
 }

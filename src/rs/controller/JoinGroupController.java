@@ -20,24 +20,28 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.model.Group;
 import rs.model.JoinRequest;
 import rs.service.GenericService;
+import rs.service.LoginService;
 
 /**
  * @author s.gupta
  * @version $Revision: 1.0 $
  */
 @RestController
-@RequestMapping("/request")
+//@RequestMapping("/request")
 public class JoinGroupController extends GenericController<JoinRequest> {
 
 	@Autowired
 	GenericService<JoinRequest> joinService;
+	
+	@Autowired LoginService loginService;
 
 	@RequestMapping(method = RequestMethod.POST, value="/join")
 	public ResponseEntity<?> create(@RequestHeader(value="token") String token,@Valid @RequestBody JoinRequest request, BindingResult result) {
 		if(result.hasFieldErrors()){
 			return new ResponseEntity<List<FieldError>>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
-		}		 
-		JoinRequest reqJoinRequest=joinService.create(request);
+		}
+		request.setUserUUID(loginService.getLoggedInUser(token));
+		JoinRequest reqJoinRequest=joinService.createOrUpdate(request);
 		return new ResponseEntity<JoinRequest>(reqJoinRequest, HttpStatus.OK);
 	}
 	
