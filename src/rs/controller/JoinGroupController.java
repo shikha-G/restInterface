@@ -2,9 +2,7 @@ package rs.controller;
 
 import java.util.List;
 
-
-
-
+import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -20,47 +18,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.model.Group;
-import rs.service.GroupService;
+import rs.model.JoinRequest;
+import rs.service.GenericService;
 
 /**
  * @author s.gupta
  * @version $Revision: 1.0 $
  */
 @RestController
-@RequestMapping("/group")
-public class GroupController extends GenericController<Group> {
-	
-	/**
-	 * Field groupService.
-	 */
-	@Autowired
-	GroupService groupService;
-	
-	
+@RequestMapping("/request")
+public class JoinGroupController extends GenericController<JoinRequest> {
 
-	/**
-	 * Method joinGroup.
-	 * @param token String
-	 * @param grp Group
-	 * @param result BindingResult
-	
-	 * @return ResponseEntity<?> */
-	@RequestMapping(method = RequestMethod.PUT, value="/join")
-	public ResponseEntity<?> joinGroup(@RequestHeader(value="token") String token,@Valid @RequestBody Group grp, BindingResult result) {
+	@Autowired
+	GenericService<JoinRequest> joinService;
+
+	@RequestMapping(method = RequestMethod.POST, value="/join")
+	public ResponseEntity<?> create(@RequestHeader(value="token") String token,@Valid @RequestBody JoinRequest request, BindingResult result) {
 		if(result.hasFieldErrors()){
 			return new ResponseEntity<List<FieldError>>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
 		}		 
-		Group group=groupService.joinGroup(token,grp.getUuid());
-		return new ResponseEntity<Group>(group, HttpStatus.OK);
+		JoinRequest reqJoinRequest=joinService.create(request);
+		return new ResponseEntity<JoinRequest>(reqJoinRequest, HttpStatus.OK);
 	}
 	
-	/**
-	 * Method vote.
-	 * @param token String
-	 * @param groupUUID String
-	 * @param result BindingResult
-	
-	 * @return ResponseEntity<?> */
+
 	@RequestMapping(method = RequestMethod.PUT, value="/vote")
 	public ResponseEntity<?> vote(@RequestHeader(value="token") String token,@RequestBody String groupUUID, @NotNull BindingResult result) {
 		if(result.hasFieldErrors()){
@@ -70,4 +51,15 @@ public class GroupController extends GenericController<Group> {
 		//return new ResponseEntity<Group>(group, HttpStatus.OK);
 		return null;
 	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/invite")
+	public ResponseEntity<?> invite(@RequestHeader(value="token") String token,@RequestBody String groupUUID, @NotNull BindingResult result) {
+		if(result.hasFieldErrors()){
+			return new ResponseEntity<List<FieldError>>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
+		}		 
+		//Group group=groupService.joinGroup(token,groupUUID);
+		//return new ResponseEntity<Group>(group, HttpStatus.OK);
+		return null;
+	}
+	
 }
