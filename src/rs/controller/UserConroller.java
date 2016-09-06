@@ -49,7 +49,7 @@ public class UserConroller extends GenericController<User> {
 		Map<String, Object> searchParams = new HashMap<String, Object>();
 		searchParams.put("mobileNo", contacts);
 		List<User> friends = service.find(searchParams );
-		userService.createFriendShip(token,friends);
+		//userService.createFriendShip(token,friends);
 		return new ResponseEntity<List<User>>(friends, HttpStatus.OK);
 	}
 }

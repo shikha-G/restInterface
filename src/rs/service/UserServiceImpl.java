@@ -20,11 +20,11 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 	 * @param friends List<User>
 	
 	 * @see rs.service.UserService#createFriendShip(String, List<User>) */
-	@Override
+	/*@Override
 	@Transactional
 	public void createFriendShip(String uuid, List<User> friends) {
 		// TODO Auto-generated method stub
 		repo.createRelationShip(uuid, friends, "friend");
-	}
+	}*/
 
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import rs.repository.GenericRepository;
@@ -22,7 +23,10 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	 * Field repo.
 	 */
 	@Autowired
-	GenericRepository<T> repo;
+	MongoRepository<T, UUID> repo;
+	
+	@Autowired
+	GenericRepository<T> customRepo;
 	
 	/**
 	 * Field validator.
@@ -38,7 +42,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	 * @return List<T> * @see rs.service.GenericService#find(Map<String,Object>) */
 	public List<T> find(Map<String, Object> searchParams) {
 		validator.validateMap(searchParams);
-		return repo.findByFields(searchParams);
+		return customRepo.findByFields(searchParams);
 	}
 
 	/**
@@ -48,7 +52,8 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	
 	 * @return List<T> * @see rs.service.GenericService#createMultiple(List<T>) */
 	public List<T> createMultiple(List<T> t) {
-		return t;
+		return repo.save(t);
+		//return t;
 	}
 
 	/**
@@ -59,7 +64,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	 * @return T * @see rs.service.GenericService#create(T) */
 	@Transactional
 	public T create(T t) {
-		return repo.create(t);
+		return repo.save(t);
 	}
 
 	/**
@@ -70,7 +75,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	 * @return T * @see rs.service.GenericService#update(T) */
 	@Transactional
 	public T update(T t) {
-		return repo.update(t);
+		return repo.save(t);
 	}
 	/**
 	 * Method createOrUpdate.
@@ -80,7 +85,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	 * @return T * @see rs.service.GenericService#createOrUpdate(T) */
 	@Transactional
 	public T createOrUpdate(T t) {
-		return repo.createOrUpdate(t);
+		return repo.save(t);
 	}
 	
 	/**
@@ -91,7 +96,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	 * @return T * @see rs.service.GenericService#findByUUID(UUID) */
 	@Override
 	public T findByUUID(UUID uuid) {
-		return repo.findByUUID(uuid);
+		return repo.findOne(uuid);
 	}
 
 }

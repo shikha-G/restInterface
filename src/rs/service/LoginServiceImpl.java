@@ -2,22 +2,24 @@ package rs.service;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import rs.model.LoginRequest;
+import rs.model.Rumour;
 import rs.model.User;
 
 /**
  * @author s.gupta
  * @version $Revision: 1.0 $
  */
-@Service
-public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
-		implements LoginService {
+@Component
+public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implements LoginService {
 	
 	/**
 	 * Field _15.
@@ -28,7 +30,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 	 * Field userService.
 	 */
 	@Autowired
-	GenericService<User> userService;
+	UserService userService;
 	
 	/**
 	 * Method verify.
@@ -39,7 +41,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 	 */
 	public LoginRequest verify(Map<String, Object> map) {
 		validator.validateMap(map);
-		LoginRequest login= repo.findByUUID((UUID)map.get("uuid"));
+		LoginRequest login= repo.findOne((UUID)map.get("uuid"));
 		if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
 			// Create or update User
 			User user = new User();
@@ -50,7 +52,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 		}else{
 			login.setStatus("LOGIN_FAILED");
 		}
-		return repo.update(login);
+		return repo.save(login);
 	}
 	
 	/**
@@ -80,6 +82,36 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest>
 	@Override
 	public UUID getLoggedInUser(String token) {		
 		return UUID.fromString(token);
+	}
+
+	@Override
+	public List<LoginRequest> find(Map<String, Object> searchParams) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LoginRequest update(LoginRequest t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<LoginRequest> createMultiple(List<LoginRequest> t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LoginRequest createOrUpdate(LoginRequest t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LoginRequest findByUUID(UUID uuid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

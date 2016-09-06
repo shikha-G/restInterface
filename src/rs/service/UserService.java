@@ -1,7 +1,5 @@
 package rs.service;
 
-import java.util.List;
-
 import rs.model.User;
 
 /**
@@ -15,6 +13,6 @@ public interface UserService extends GenericService<User> {
 	 * @param token String
 	 * @param friends List<User>
 	 */
-	void createFriendShip(String token, List<User> friends);
+	//void createFriendShip(String token, List<User> friends);
 
 }
