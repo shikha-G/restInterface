@@ -36,8 +36,8 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 	/**
 	 * Field template.
 	 */
-	@Autowired
-	Neo4jTemplate template;
+	//@Autowired
+	//Neo4jTemplate template;
 	/**
 	 * Field token.
 	 */
@@ -73,12 +73,13 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("uuid", uuid);
-		Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
+		/*Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
 		if(result!=null){
 			return ((T)template.projectTo(result.get("n"), type));
 		} else {
 			return null;
-		}
+		}*/
+		return null;
 	}
 	
 	/**
@@ -90,7 +91,7 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+") ");
 		query.append(getWhereClause(searchParams));//where 
 		query.append("RETURN n");
-		Result<Map<String, Object>> result = template.query(query.toString(), searchParams);
+		Result<Map<String, Object>> result = null;//template.query(query.toString(), searchParams);
 		return convertToList(result);
 	}
 
@@ -106,7 +107,7 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 			while(itr.hasNext()){
 				Map<String, Object> next = itr.next();
 				for(Entry<String, Object> entry:next.entrySet()){
-					T entity = (T)template.projectTo(entry.getValue(), type);
+					T entity = null;//(T)template.projectTo(entry.getValue(), type);
 					list.add(entity);
 				}
 			}
@@ -161,7 +162,7 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 	 * @return T * @see rs.repository.GenericRepository#create(T) * @see rs.repository.GenericRepository#create(T)
 	 */
 	public T create(@NotNull final T t) {
-		return template.save(t);
+		return t;//template.save(t);
 	} 
 
 
@@ -185,8 +186,9 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 			query.append(" n."+key+"={"+key+"} ");
 		}
 		query.append("RETURN n");
-		Map<String, Object> result = template.query(query.toString(), propMap).singleOrNull();
-		return result!=null ? (T)template.projectTo(result.get("n"), type) : null;
+		//Map<String, Object> result = template.query(query.toString(), propMap).singleOrNull();
+		//return result!=null ? (T)template.projectTo(result.get("n"), type) : null;
+		return null;
 	}
 
 	/**
@@ -238,7 +240,7 @@ public abstract class Neo4jRepository<T extends BaseNeo4jEntity> implements Gene
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("uuid", uuid);
 			params.put("uuidList", uuidList);
-			template.query(query.toString(), params );
+			//template.query(query.toString(), params );
 			//Iterator<Map<String, Object>> itr = result.iterator();
 			//return convertToList(result);
 		}

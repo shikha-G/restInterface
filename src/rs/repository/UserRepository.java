@@ -42,7 +42,8 @@ public class UserRepository extends Neo4jRepository<User>  {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("mobileNo", mobileNo);
-		Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
-		return result!=null ? (User)template.projectTo(result.get("n"), type) : null;
+		//Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
+		//return result!=null ? (User)template.projectTo(result.get("n"), type) : null;
+		return null;
 	}
 }
