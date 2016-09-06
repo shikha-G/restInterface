@@ -12,14 +12,14 @@ import rs.model.User;
  * @version $Revision: 1.0 $
  */
 @Repository
-public class UserRepository extends Neo4jRepository<User>  {
+public class UserRepository  {
 
 	/**
 	 * Method createOrUpdate.
 	 * @param t User
 	
 	 * @return User */
-	@Override
+	/*@Override
 	public User createOrUpdate(User t) {
 		User existing = findByMobileNo(t.getMobileNo());
 		if(existing != null){	// update
@@ -28,14 +28,14 @@ public class UserRepository extends Neo4jRepository<User>  {
 		} else {
 			return create(t);
 		}
-	}
+	}*/
 
 	/**
 	 * Method findByMobileNo.
 	 * @param mobileNo String
 	
 	 * @return User */
-	private User findByMobileNo(String mobileNo) {
+	/*private User findByMobileNo(String mobileNo) {
 		StringBuilder query = new StringBuilder("Match (n:"+type.getSimpleName()+") ");
 		query.append("WHERE n.mobileNo = {mobileNo} ");//where 
 		query.append("RETURN n");
@@ -45,5 +45,5 @@ public class UserRepository extends Neo4jRepository<User>  {
 		//Map<String, Object> result = template.query(query.toString(), params).singleOrNull();
 		//return result!=null ? (User)template.projectTo(result.get("n"), type) : null;
 		return null;
-	}
+	}*/
 }

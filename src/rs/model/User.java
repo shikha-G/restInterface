@@ -8,7 +8,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
  * @version $Revision: 1.0 $
  */
 @NodeEntity
-public class User extends BaseNeo4jEntity{
+public class User {
 
 	/**
 	 * Field serialVersionUID.

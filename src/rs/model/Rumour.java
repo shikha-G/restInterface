@@ -7,7 +7,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
  * @version $Revision: 1.0 $
  */
 @NodeEntity
-public class Rumour extends BaseNeo4jEntity{
+public class Rumour {
 
 	/**
 	 * Field serialVersionUID.

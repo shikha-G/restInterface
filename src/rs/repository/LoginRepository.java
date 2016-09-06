@@ -9,6 +9,6 @@ import rs.model.LoginRequest;
  * @version $Revision: 1.0 $
  */
 @Repository
-public class LoginRepository extends Neo4jRepository<LoginRequest> {
+public class LoginRepository {
 
 }

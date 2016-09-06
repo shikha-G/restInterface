@@ -9,6 +9,6 @@ import rs.model.Rumour;
  * @version $Revision: 1.0 $
  */
 @Repository
-public class RumourRepository extends Neo4jRepository<Rumour> {
+public class RumourRepository  {
 
 }
