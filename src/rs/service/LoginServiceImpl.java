@@ -2,17 +2,16 @@ package rs.service;
 
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import rs.model.LoginRequest;
-import rs.model.Rumour;
 import rs.model.User;
+import rs.repository.LoginRepository;
+import rs.validate.GenericValidator;
 
 /**
  * @author s.gupta
@@ -20,6 +19,12 @@ import rs.model.User;
  */
 @Component
 public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implements LoginService {
+	
+	@Autowired
+	LoginRepository repo;
+	
+	@Autowired
+	GenericValidator<LoginRequest> validator;
 	
 	/**
 	 * Field _15.
@@ -41,7 +46,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implement
 	 */
 	public LoginRequest verify(Map<String, Object> map) {
 		validator.validateMap(map);
-		LoginRequest login= repo.findOne((UUID)map.get("uuid"));
+		LoginRequest login= repo.findOne(((UUID)map.get("uuid")).toString());
 		if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
 			// Create or update User
 			User user = new User();
@@ -67,7 +72,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implement
 			t.setStatus("VERIFICATION_PENDING");
 			t.setOtpExpireDate(LocalDateTime.now().plusMinutes(_15));
 		}
-		return super.create(t);
+		return repo.save(t);
 	}
 	/**
 	 * Method sendSMS.
@@ -84,35 +89,6 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implement
 		return UUID.fromString(token);
 	}
 
-	@Override
-	public List<LoginRequest> find(Map<String, Object> searchParams) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public LoginRequest update(LoginRequest t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<LoginRequest> createMultiple(List<LoginRequest> t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public LoginRequest createOrUpdate(LoginRequest t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public LoginRequest findByUUID(UUID uuid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 
 }

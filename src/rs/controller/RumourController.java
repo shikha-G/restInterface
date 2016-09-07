@@ -11,6 +11,6 @@ import rs.model.Rumour;
  */
 @RestController
 @RequestMapping("/rumour")
-public class RumourController extends GenericController<Rumour> {
+public class RumourController extends GenericController<Rumour>{
 
 }

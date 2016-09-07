@@ -23,7 +23,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	 * Field repo.
 	 */
 	@Autowired
-	MongoRepository<T, UUID> repo;
+	MongoRepository<T, String> repo;
 	
 	@Autowired
 	GenericRepository<T> customRepo;
@@ -96,7 +96,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	 * @return T * @see rs.service.GenericService#findByUUID(UUID) */
 	@Override
 	public T findByUUID(UUID uuid) {
-		return repo.findOne(uuid);
+		return repo.findOne(uuid.toString());
 	}
 
 }

@@ -26,7 +26,7 @@ import rs.service.UserService;
  */
 @RestController
 @RequestMapping("/user")
-public class UserConroller extends GenericController<User> {
+public class UserConroller  {
 	
 	/**
 	 * Field userService.
@@ -46,9 +46,9 @@ public class UserConroller extends GenericController<User> {
 		if(result.hasFieldErrors()){
 			return new ResponseEntity<List<FieldError>>(result.getFieldErrors(), HttpStatus.BAD_REQUEST);
 		}
-		Map<String, Object> searchParams = new HashMap<String, Object>();
-		searchParams.put("mobileNo", contacts);
-		List<User> friends = service.find(searchParams );
+		//Map<String, Object> searchParams = new HashMap<String, Object>();
+		//searchParams.put("mobileNo", contacts);
+		List<User> friends = userService.findByMobileNo(contacts );
 		//userService.createFriendShip(token,friends);
 		return new ResponseEntity<List<User>>(friends, HttpStatus.OK);
 	}

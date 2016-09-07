@@ -1,11 +1,13 @@
 package rs.service;
 
+
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import rs.model.User;
+import rs.repository.UserRepository;
 
 /**
  * @author s.gupta
@@ -13,6 +15,20 @@ import rs.model.User;
  */
 @Service
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService{
+
+	@Autowired
+	UserRepository repo;
+	
+	@Override
+	public User createOrUpdate(User user) {
+		return repo.save(user);
+		//return null;
+	}
+
+	@Override
+	public List<User> findByMobileNo(List<String> contacts) {
+		return repo.findByMobileNo(contacts);
+	}
 
 	/**
 	 * Method createFriendShip.

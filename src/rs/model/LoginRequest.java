@@ -1,17 +1,19 @@
 package rs.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author Shikha
  *
  * @version $Revision: 1.0 $
  */
-@NodeEntity
+@Document
 public class LoginRequest  {
 
 	private static final int _1000 = 1000;
@@ -23,13 +25,17 @@ public class LoginRequest  {
 	 * (value is 1400826655351790992)
 	 */
 	private static final long serialVersionUID = 1400826655351790992L;
-		
+	
+	@Id
+	private String uuid = UUID.randomUUID().toString();
+	
 	/**
 	 * Field mobileNo.
 	 */
 	@NotNull
 	private String mobileNo;
 	
+
 	//@Value("${requestStatus}")
 	/**
 	 * Field status.
@@ -50,6 +56,14 @@ public class LoginRequest  {
 	 * Field accessToken.
 	 */
 	private String accessToken;
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 
 	/**
 	 * Method getMobileNo.

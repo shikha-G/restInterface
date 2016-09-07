@@ -20,4 +20,6 @@ public interface LoginService extends GenericService<LoginRequest> {
 	
 	UUID getLoggedInUser(String token);
 
+	LoginRequest create(LoginRequest t);
+
 }

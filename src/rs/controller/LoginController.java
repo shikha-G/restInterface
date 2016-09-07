@@ -24,7 +24,7 @@ import rs.service.LoginService;
  */
 @RestController
 @RequestMapping("/login")
-public class LoginController extends GenericController<LoginRequest> {
+public class LoginController extends GenericController<LoginRequest>{
 
 	/**
 	 * Field loginService.
