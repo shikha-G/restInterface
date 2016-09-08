@@ -2,6 +2,8 @@ package rs.repository;
 
 import java.util.List;
 
+
+
 import org.springframework.stereotype.Repository;
 
 import rs.model.User;
@@ -14,5 +16,6 @@ import rs.model.User;
 public class UserRepository extends JPARepositoryImpl<User> {
 	
 	//List<User> findByMobileNo(List<String> mobileNos);
+
 
 }

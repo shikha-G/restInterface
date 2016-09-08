@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
 
 /**
  * @author s.gupta
@@ -45,6 +47,7 @@ public class Application {
     	return objMapper;
     }
     
+
    /* @Configuration
     @EnableMongoRepositories("rs.repository")
     static class ApplicationConfig extends AbstractMongoConfiguration {
@@ -60,6 +63,7 @@ public class Application {
     		return new MongoClient("127.0.0.1");
     	}
     }*/
+
 
     	
     

@@ -32,6 +32,7 @@ public class User {
 	/**
 	 * Field mobileNo.
 	 */
+
 	private String mobileNo;
 
 	public String getUuid() {

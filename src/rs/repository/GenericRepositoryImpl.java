@@ -67,6 +67,7 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
 	public T findByUUID(UUID object) {
 		// TODO Auto-generated method stub
 		return null;
+
 	}
 
 }

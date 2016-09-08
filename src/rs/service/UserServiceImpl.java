@@ -21,13 +21,16 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 	
 	@Override
 	public User createOrUpdate(User user) {
+
 		return repo.create(user);
+
 		//return null;
 	}
 
 	@Override
 	public List<User> findByMobileNo(List<String> contacts) {
-		return repo.findByMobileNo(contacts);
+		//return repo.findByMobileNo(contacts);
+		return null;
 	}
 
 	/**
