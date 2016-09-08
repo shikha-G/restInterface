@@ -1,22 +1,9 @@
 package rs.global;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.rest.graphdb.RestAPI;
-import org.neo4j.rest.graphdb.RestAPIImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.core.convert.converter.ConverterRegistry;
-import org.springframework.data.neo4j.config.Neo4jConfiguration;
-import org.springframework.data.neo4j.rest.SpringCypherRestGraphDatabase;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -27,7 +14,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = {"rs.controller", "rs.service", "rs.repository", "rs.validate"})
-@PropertySource("classpath:config.properties")
+//@PropertySource("classpath:config.properties")
 public class Application {
 
     /**
@@ -58,6 +45,22 @@ public class Application {
     	return objMapper;
     }
     
-    
+   /* @Configuration
+    @EnableMongoRepositories("rs.repository")
+    static class ApplicationConfig extends AbstractMongoConfiguration {
+
+    	@Override
+    	public String getDatabaseName() {
+    		return "yourdb";
+    	}
+
+    	@Override
+    	@Bean
+    	public Mongo mongo() throws Exception {
+    		return new MongoClient("127.0.0.1");
+    	}
+    }*/
+
+    	
     
 }

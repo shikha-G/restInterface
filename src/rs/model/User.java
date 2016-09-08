@@ -1,13 +1,14 @@
 package rs.model;
 
-import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
+import java.util.UUID;
+
+import javax.persistence.Entity;
 
 /**
  * @author s.gupta
  * @version $Revision: 1.0 $
  */
-@NodeEntity
+@Entity
 public class User {
 
 	/**
@@ -15,6 +16,8 @@ public class User {
 	 * (value is -2831325011817444203)
 	 */
 	private static final long serialVersionUID = -2831325011817444203L;
+	
+	private String uuid = UUID.randomUUID().toString();
 	
 	/**
 	 * Field firstName.
@@ -29,8 +32,15 @@ public class User {
 	/**
 	 * Field mobileNo.
 	 */
-	@Indexed(unique=true, failOnDuplicate = true)
 	private String mobileNo;
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 
 	/**
 	 * Method getMobileNo.

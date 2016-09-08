@@ -1,6 +1,5 @@
 package rs.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import rs.model.LoginRequest;
@@ -10,6 +9,6 @@ import rs.model.LoginRequest;
  * @version $Revision: 1.0 $
  */
 @Repository
-public interface LoginRepository extends MongoRepository<LoginRequest, String> {
+public class LoginRepository extends JPARepositoryImpl<LoginRequest> {
 
 }
