@@ -23,7 +23,6 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 	public User createOrUpdate(User user) {
 
 		return repo.create(user);
-
 		//return null;
 	}
 
