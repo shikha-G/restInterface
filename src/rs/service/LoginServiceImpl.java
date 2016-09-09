@@ -46,7 +46,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implement
 	 */
 	public LoginRequest verify(Map<String, Object> map) {
 		validator.validateMap(map);
-		LoginRequest login= repo.findByUUID(((UUID)map.get("uuid")));
+		LoginRequest login= repo.findOne(((UUID)map.get("uuid")));
 		if(!login.isOTPExpired() && login.getOtp().equals(map.get("otp"))){
 			// Create or update User
 			User user = new User();
@@ -57,7 +57,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implement
 		}else{
 			login.setStatus("LOGIN_FAILED");
 		}
-		return repo.create(login);
+		return repo.save(login);
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implement
 			t.setStatus("VERIFICATION_PENDING");
 			t.setOtpExpireDate(LocalDateTime.now().plusMinutes(_15));
 		}
-		return repo.create(t);
+		return repo.save(t);
 	}
 	/**
 	 * Method sendSMS.

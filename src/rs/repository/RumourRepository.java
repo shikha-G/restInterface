@@ -1,6 +1,10 @@
 package rs.repository;
 
 
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import rs.model.Rumour;
@@ -10,6 +14,6 @@ import rs.model.Rumour;
  * @version $Revision: 1.0 $
  */
 @Repository
-public class RumourRepository extends JPARepositoryImpl<Rumour>{
+public interface RumourRepository extends JpaRepository<Rumour, UUID> {
 
 }

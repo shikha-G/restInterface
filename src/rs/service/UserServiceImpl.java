@@ -22,7 +22,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 	@Override
 	public User createOrUpdate(User user) {
 
-		return repo.create(user);
+		return repo.save(user);
 		//return null;
 	}
 

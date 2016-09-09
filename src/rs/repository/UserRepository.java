@@ -1,9 +1,8 @@
 package rs.repository;
 
-import java.util.List;
+import java.util.UUID;
 
-
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import rs.model.User;
@@ -13,7 +12,7 @@ import rs.model.User;
  * @version $Revision: 1.0 $
  */
 @Repository
-public class UserRepository extends JPARepositoryImpl<User> {
+public interface UserRepository extends JpaRepository<User, UUID> {
 	
 	//List<User> findByMobileNo(List<String> mobileNos);
 
