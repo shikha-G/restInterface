@@ -26,7 +26,15 @@ public class LoginRequest  {
 	private static final long serialVersionUID = 1400826655351790992L;
 	
 	@Id
-	private String uuid = UUID.randomUUID().toString();
+	private UUID uuid;
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
 	
 	/**
 	 * Field mobileNo.
@@ -56,13 +64,7 @@ public class LoginRequest  {
 	 */
 	private String accessToken;
 
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+	
 
 	/**
 	 * Method getMobileNo.

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import rs.model.LoginRequest;
 import rs.model.User;
-import rs.repository.LoginRepository;
 import rs.validate.GenericValidator;
 
 /**
@@ -20,8 +19,8 @@ import rs.validate.GenericValidator;
 @Component
 public class LoginServiceImpl extends GenericServiceImpl<LoginRequest> implements LoginService {
 	
-	@Autowired
-	LoginRepository repo;
+	//@Autowired
+	//LoginRepository repo;
 	
 	@Autowired
 	GenericValidator<LoginRequest> validator;

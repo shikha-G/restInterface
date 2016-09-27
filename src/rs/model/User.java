@@ -3,6 +3,7 @@ package rs.model;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * @author s.gupta
@@ -17,7 +18,16 @@ public class User {
 	 */
 	private static final long serialVersionUID = -2831325011817444203L;
 	
-	private String uuid = UUID.randomUUID().toString();
+	@Id
+	private UUID uuid;
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
 	
 	/**
 	 * Field firstName.
@@ -35,14 +45,7 @@ public class User {
 
 	private String mobileNo;
 
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
+	
 	/**
 	 * Method getMobileNo.
 	

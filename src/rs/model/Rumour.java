@@ -18,17 +18,19 @@ public class Rumour {
 	 */
 	private static final long serialVersionUID = 6462903511232782685L;
 	
-	@Id
-	private String uuid = UUID.randomUUID().toString();
+	
 	
 	private String title;
 
 
-	public String getUuid() {
+	@Id
+	private UUID uuid;
+
+	public UUID getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(String uuid) {
+	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
 

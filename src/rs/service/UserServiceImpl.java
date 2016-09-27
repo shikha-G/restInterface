@@ -3,11 +3,9 @@ package rs.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.model.User;
-import rs.repository.UserRepository;
 
 /**
  * @author s.gupta
@@ -16,8 +14,8 @@ import rs.repository.UserRepository;
 @Service
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService{
 
-	@Autowired
-	UserRepository repo;
+	//@Autowired
+	//UserRepository repo;
 	
 	@Override
 	public User createOrUpdate(User user) {
